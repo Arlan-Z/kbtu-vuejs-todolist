@@ -8,6 +8,8 @@ import TaskItem from "./TaskItem.vue";
       <div class="title">New</div>
 
       <div class="task-container">
+        <button id="new-task">+ New item</button>
+
         <TaskItem />
       </div>
     </div>
@@ -54,9 +56,20 @@ import TaskItem from "./TaskItem.vue";
   height: 500px;
   background-color: rgba(122, 39, 255, 0.05);
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: repeat(8, 1fr);
+  padding: 15px 15px;
+  row-gap: 15px;
+}
+
+#new-task {
+  width: 30%;
+  border: none;
+  text-align: left;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.148);
+  font-size: 16px;
 }
 </style>
