@@ -95,14 +95,13 @@ function removeCategory(index: number) {
 }
 
 .delete-icon {
-  fill: #fa805d;
-  width: 12px;
+  fill: #cacaca;
   height: 14px;
   transition: 0.2s;
 }
 
 .delete-icon:hover {
-  fill: #8d4936;
+  fill: #9f9f9f;
 }
 
 #add-btn {
