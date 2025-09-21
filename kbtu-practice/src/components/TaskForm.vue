@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import type { Task, TaskPriority } from "@/models/task";
+import type { Task, TaskCategory, TaskPriority } from "@/models/task";
 import { ref } from "vue";
+import CategoryForm from "./CategoryForm.vue";
 
 const emit = defineEmits<{
   (e: "add-task", task: Task): void;
 }>();
 
+const showCategoryForm = ref(false);
+
 const title = ref("");
 const priority = ref<TaskPriority>("low");
-const category = ref("");
+const categories = ref<TaskCategory[]>([]);
 
 function saveTask() {
   if (!title.value) return;
@@ -16,16 +19,15 @@ function saveTask() {
   const newTask: Task = {
     id: Date.now(),
     title: title.value,
-    status: "new",
     priority: priority.value,
-    category: category.value ? [{ name: category.value, color: "blue" }] : [],
+    category: categories.value,
   };
 
   emit("add-task", newTask);
 
   title.value = "";
   priority.value = "low";
-  category.value = "";
+  categories.value = [];
 }
 </script>
 
@@ -34,7 +36,12 @@ function saveTask() {
     <input type="text" id="title" placeholder="Task title" v-model="title" />
 
     <div class="option-box">
-      <button id="category">+ Category</button>
+      <button id="category" @click="showCategoryForm = !showCategoryForm">
+        + Category
+      </button>
+
+      <CategoryForm v-if="showCategoryForm" v-model:categories="categories" />
+
       <select v-model="priority" id="priority">
         <option value="low">Low</option>
         <option value="medium">Medium</option>
@@ -79,6 +86,7 @@ function saveTask() {
 }
 
 .option-box {
+  position: relative;
   display: flex;
   gap: 10px;
   width: 100%;
@@ -87,7 +95,7 @@ function saveTask() {
 
 #category {
   flex: 1;
-  background-color: #7a27ff;
+  background-color: #0d3b66;
   color: white;
   font-size: 14px;
   padding: 10px 12px;
@@ -98,7 +106,7 @@ function saveTask() {
   transition: background-color 0.2s ease-in-out;
 }
 #category:hover {
-  background-color: #601fd1;
+  background-color: #155794;
 }
 
 #priority {
