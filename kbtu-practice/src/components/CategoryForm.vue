@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { TaskCategory } from "@/models/task";
 import DeleteIcon from "@/assets/icons/delete-icon.svg?component";
+import { categories } from "@/data/taskCategories";
 import { ref } from "vue";
 
 const props = defineProps<{
@@ -11,23 +12,40 @@ const emit = defineEmits<{
   (e: "update:categories", value: TaskCategory[]): void;
 }>();
 
-const localCategories = ref<TaskCategory[]>([...props.categories]);
+const allCategories = ref<TaskCategory[]>(categories);
+const selectedCategories = ref<TaskCategory[]>([]);
 
 function addCategory() {
-  localCategories.value.push({
+  allCategories.value.push({
     name: "",
   });
-  emit("update:categories", localCategories.value);
+  emit("update:categories", selectedCategories.value);
 }
 
 function updateCategory(index: number, key: keyof TaskCategory, value: string) {
-  localCategories.value[index][key] = value;
-  emit("update:categories", localCategories.value);
+  allCategories.value[index][key] = value;
+  emit("update:categories", selectedCategories.value);
 }
 
 function removeCategory(index: number) {
-  localCategories.value.splice(index, 1);
-  emit("update:categories", localCategories.value);
+  allCategories.value.splice(index, 1);
+  emit("update:categories", selectedCategories.value);
+}
+
+function toggleSelect(index: number) {
+  const cat = allCategories.value[index];
+  const pos = selectedCategories.value.indexOf(cat);
+
+  if (pos === -1) {
+    selectedCategories.value.push(cat);
+  } else {
+    selectedCategories.value.splice(pos, 1);
+  }
+  emit("update:categories", selectedCategories.value);
+}
+
+function isSelected(index: number) {
+  return selectedCategories.value.indexOf(allCategories.value[index]) !== -1;
 }
 </script>
 
@@ -35,7 +53,16 @@ function removeCategory(index: number) {
   <div class="category-form-wrapper">
     <button id="add-btn" @click="addCategory">+ Add category</button>
 
-    <div v-for="(cat, index) in localCategories" :key="index" class="category">
+    <div v-for="(cat, index) in allCategories" :key="index" class="category">
+      <label class="select-wrap">
+        <input
+          type="checkbox"
+          :checked="isSelected(index)"
+          @change="toggleSelect(index)"
+        />
+        <span class="check-custom"></span>
+      </label>
+
       <input
         type="text"
         v-model="cat.name"
