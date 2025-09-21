@@ -1,6 +1,12 @@
 <script lang="ts" setup>
 import DownArrow from "@/assets/icons/down-arrow.svg?component";
 import DeleteIcon from "@/assets/icons/delete-icon.svg?component";
+import CategoryFilter from "../CategoryFilter.vue";
+import PriorityFilter from "../PriorityFilter.vue";
+import { ref } from "vue";
+
+let showCategoryFilter = ref(false);
+let showPriorityFilter = ref(false);
 </script>
 
 <template>
@@ -10,15 +16,17 @@ import DeleteIcon from "@/assets/icons/delete-icon.svg?component";
     <div class="filter-box">
       <input type="text" class="search-input" placeholder="Filter by keyword" />
 
-      <button id="category-filter">
+      <button id="category-filter" @click="showCategoryFilter = !showCategoryFilter">
         Category
         <DownArrow class="down-arrow-icon" />
       </button>
+      <CategoryFilter v-if="showCategoryFilter" />
 
-      <button id="priority-filter">
+      <button id="priority-filter" @click="showPriorityFilter = !showPriorityFilter">
         Priority
         <DownArrow class="down-arrow-icon" />
       </button>
+      <PriorityFilter v-if="showPriorityFilter" />
 
       <button id="clear-filter-btn" title="Clear filters">
         <DeleteIcon class="delete-icon" />
@@ -37,9 +45,9 @@ import DeleteIcon from "@/assets/icons/delete-icon.svg?component";
   align-items: center;
   flex-direction: column;
   gap: 20px;
+  position: relative;
 }
-
-.logo-box {
+x .logo-box {
   width: 100%;
   height: 75px;
   padding: 0 50px;
