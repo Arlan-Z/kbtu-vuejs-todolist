@@ -69,7 +69,7 @@ import TaskItem from "./TaskItem.vue";
   text-align: left;
   box-sizing: border-box;
   padding: 10px;
-  background-color: rgba(0, 0, 0, 0.148);
+  background-color: rgba(0, 0, 0, 0.075);
   font-size: 16px;
 }
 </style>

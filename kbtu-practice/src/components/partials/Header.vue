@@ -15,7 +15,7 @@ import DeleteIcon from "@/assets/icons/delete-icon.svg?component";
         <DownArrow class="down-arrow-icon" />
       </button>
 
-      <button id="category-filter">
+      <button id="priority-filter">
         Priority
         <DownArrow class="down-arrow-icon" />
       </button>
@@ -85,7 +85,8 @@ import DeleteIcon from "@/assets/icons/delete-icon.svg?component";
   color: #82837c;
 }
 
-#category-filter {
+#category-filter,
+#priority-filter {
   background-color: transparent;
   border: none;
   font-size: 16px;
