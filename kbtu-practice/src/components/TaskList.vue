@@ -19,7 +19,7 @@ const tasks: Task[] = [];
 
         <TaskForm v-if="showTaskForm" />
 
-        <p v-if="tasks.length === 0" class="no-tasks">No Tasks</p>
+        <p v-if="tasks.length === 0 && !showTaskForm" class="no-tasks">No Tasks</p>
 
         <TaskItem v-else v-for="task in tasks" :key="task.id" :task="task" />
       </div>
