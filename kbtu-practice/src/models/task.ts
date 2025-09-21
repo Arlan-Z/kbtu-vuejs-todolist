@@ -1,9 +1,9 @@
 export interface Task {
     id: number,
     title: string,
-    status: 'new' | 'in-progress' | 'done',
+    status: 'new' | 'in-progress' | 'completed',
     priority: "low" | "medium" | "high",
-    category: TaskCategory
+    category: TaskCategory[]
 }
 
 export type TaskCategory = {

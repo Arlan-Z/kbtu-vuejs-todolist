@@ -1,20 +1,19 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { Task } from "@/models/task";
+
+const props = defineProps<{
+  task: Task;
+}>();
+</script>
 
 <template>
-  <div class="task-item-wrapper priority-high">
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, at dignissimos
-      dolorem numquam reprehenderit
-    </p>
+  <div class="task-item-wrapper" :class="`priority-${props.task.priority}`">
+    <p>{{ props.task.title }}</p>
 
     <div class="category-box">
-      <div class="category">Category</div>
-      <div class="category">Category</div>
-      <div class="category">Category</div>
-      <div class="category">Category</div>
-      <div class="category">Category</div>
-      <div class="category">Category</div>
-      <div class="category">Category</div>
+      <div class="category" v-for="category in props.task.category">
+        {{ category.name }}
+      </div>
     </div>
   </div>
 </template>
@@ -23,7 +22,6 @@
 .task-item-wrapper {
   background-color: #fafafa;
   width: 100%;
-  height: 150px;
   padding: 10px 15px;
   border-radius: 5px;
 

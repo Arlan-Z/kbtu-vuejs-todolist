@@ -1,9 +1,54 @@
 <script setup lang="ts">
 import TaskItem from "./TaskItem.vue";
 import TaskForm from "./TaskForm.vue";
+import type { Task } from "@/models/task";
 import { ref } from "vue";
 
 let showTaskForm = ref(false);
+
+const tasks: Task[] = [
+  {
+    id: 1,
+    title: "Learn Vue",
+    status: "new",
+    priority: "high",
+    category: [{ name: "Chore", color: "black" }],
+  },
+  {
+    id: 2,
+    title: "Finish homework",
+    status: "in-progress",
+    priority: "medium",
+    category: [
+      { name: "Study", color: "blue" },
+      { name: "Urgent", color: "red" },
+    ],
+  },
+  {
+    id: 3,
+    title: "Buy groceries",
+    status: "completed",
+    priority: "low",
+    category: [{ name: "Personal", color: "green" }],
+  },
+  {
+    id: 4,
+    title: "Work on side project",
+    status: "in-progress",
+    priority: "high",
+    category: [{ name: "Development", color: "purple" }],
+  },
+  {
+    id: 5,
+    title: "Plan vacation",
+    status: "new",
+    priority: "medium",
+    category: [
+      { name: "Personal", color: "teal" },
+      { name: "Family", color: "orange" },
+    ],
+  },
+];
 </script>
 
 <template>
@@ -16,24 +61,20 @@ let showTaskForm = ref(false);
 
         <TaskForm v-if="showTaskForm" />
 
-        <TaskItem />
+        <TaskItem v-for="task in tasks" :key="task.id" :task="task" />
       </div>
     </div>
 
     <div class="column" id="in-progress">
       <div class="title">In progress</div>
 
-      <div class="task-container">
-        <TaskItem />
-      </div>
+      <div class="task-container"></div>
     </div>
 
     <div class="column" id="completed">
       <div class="title">Completed</div>
 
-      <div class="task-container">
-        <TaskItem />
-      </div>
+      <div class="task-container"></div>
     </div>
   </div>
 </template>
