@@ -9,6 +9,15 @@
 
     <div class="category-box">
       <div class="category">Category</div>
+      <div class="category">Category</div>
+      <div class="category">Category</div>
+      <div class="category">Category</div>
+
+      <div class="category">Category</div>
+
+      <div class="category">Category</div>
+
+      <div class="category">Category</div>
     </div>
   </div>
 </template>
@@ -27,6 +36,7 @@
 
 p {
   font-size: 14px;
+  margin-bottom: 10px;
 }
 
 .priority-low {
@@ -39,5 +49,23 @@ p {
 
 .priority-high {
   border-left: #f95738 solid 10px;
+}
+
+.category-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: start;
+  gap: 5px;
+}
+
+.category {
+  width: max-content;
+  font-size: 12px;
+  box-sizing: border-box;
+  background-color: rgb(112, 112, 199);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
 }
 </style>
