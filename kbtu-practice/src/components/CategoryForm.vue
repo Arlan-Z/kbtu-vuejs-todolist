@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { TaskCategory } from "@/models/task";
+import DeleteIcon from "@/assets/icons/delete-icon.svg?component";
 import { ref } from "vue";
 
 const props = defineProps<{
@@ -15,7 +16,6 @@ const localCategories = ref<TaskCategory[]>([...props.categories]);
 function addCategory() {
   localCategories.value.push({
     name: "",
-    color: "#000000",
   });
   emit("update:categories", localCategories.value);
 }
@@ -33,6 +33,8 @@ function removeCategory(index: number) {
 
 <template>
   <div class="category-form-wrapper">
+    <button id="add-btn" @click="addCategory">+ Add category</button>
+
     <div v-for="(cat, index) in localCategories" :key="index" class="category">
       <input
         type="text"
@@ -42,10 +44,10 @@ function removeCategory(index: number) {
         @input="updateCategory(index, 'name', cat.name)"
       />
 
-      <button class="remove-btn" @click="removeCategory(index)">✕</button>
+      <button id="remove-btn" @click="removeCategory(index)">
+        <DeleteIcon class="delete-icon" />
+      </button>
     </div>
-
-    <button class="add-btn" @click="addCategory">+ Add category</button>
   </div>
 </template>
 
@@ -53,17 +55,17 @@ function removeCategory(index: number) {
 .category-form-wrapper {
   position: absolute;
   position: absolute;
-  top: 100%;
+  top: 110%;
   left: 0;
   z-index: 1000;
 
   padding: 20px;
-  border-radius: 5px;
   background: #fafafa;
   width: 350px;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.2);
 }
 
 .category {
@@ -79,33 +81,43 @@ function removeCategory(index: number) {
   border-radius: 6px;
 }
 
-.remove-btn {
-  background: #ff6b6b;
+#remove-btn {
   border: none;
-  color: white;
   font-size: 18px;
-  padding: 5px 10px;
   border-radius: 6px;
   cursor: pointer;
   transition: 0.2s;
+  background-color: transparent;
 }
 
-.remove-btn:hover {
-  background: #ff4b4b;
+#remove-btn {
+  background-color: inherit;
 }
 
-.add-btn {
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  background: #7a27ff;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
+.delete-icon {
+  fill: #fa805d;
+  width: 12px;
+  height: 14px;
   transition: 0.2s;
 }
 
-.add-btn:hover {
-  background: #5d1ecc;
+.delete-icon:hover {
+  fill: #8d4936;
+}
+
+#add-btn {
+  width: 50%;
+  height: fit-content;
+  border: none;
+  text-align: left;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.075);
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+#add-btn:hover {
+  background-color: rgba(0, 0, 0, 0.15);
 }
 </style>
