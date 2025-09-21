@@ -43,12 +43,7 @@ function handleAddTask(task: Task) {
 
       <div class="task-container">
         <p v-if="inProgressTasks.length === 0" class="no-tasks">No Tasks</p>
-        <TaskItem
-          v-else
-          v-for="task in inProgressTasks.filter((task) => task.status === 'in-progress')"
-          :key="task.id"
-          :task="task"
-        />
+        <TaskItem v-else v-for="task in inProgressTasks" :key="task.id" :task="task" />
       </div>
     </div>
 
