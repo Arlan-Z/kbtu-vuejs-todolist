@@ -6,7 +6,6 @@ export interface Task {
 }
 
 export type TaskCategory = {
-    color: string,
     name: string
 };
 
