@@ -129,6 +129,7 @@ function handleAddTask(task: Task) {
 
 #new-task {
   width: 30%;
+  height: fit-content;
   border: none;
   text-align: left;
   box-sizing: border-box;
