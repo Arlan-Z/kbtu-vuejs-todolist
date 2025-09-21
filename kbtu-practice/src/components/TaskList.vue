@@ -3,26 +3,35 @@ import TaskItem from "./TaskItem.vue";
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="task-list-wrapper">
     <div class="column" id="new">
       <div class="title">New</div>
-      <div class="task-container"></div>
+
+      <div class="task-container">
+        <TaskItem />
+      </div>
     </div>
 
     <div class="column" id="in-progress">
       <div class="title">In progress</div>
-      <div class="task-container"></div>
+
+      <div class="task-container">
+        <TaskItem />
+      </div>
     </div>
 
     <div class="column" id="completed">
       <div class="title">Completed</div>
-      <div class="task-container"></div>
+
+      <div class="task-container">
+        <TaskItem />
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.wrapper {
+.task-list-wrapper {
   width: 100%;
   height: 100%;
   padding: 0 50px;
@@ -44,5 +53,10 @@ import TaskItem from "./TaskItem.vue";
   width: 100%;
   height: 500px;
   background-color: rgba(122, 39, 255, 0.05);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 </style>
