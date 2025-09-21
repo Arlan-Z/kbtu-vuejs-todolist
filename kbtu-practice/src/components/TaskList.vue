@@ -6,49 +6,7 @@ import { ref } from "vue";
 
 let showTaskForm = ref(false);
 
-const tasks: Task[] = [
-  {
-    id: 1,
-    title: "Learn Vue",
-    status: "new",
-    priority: "high",
-    category: [{ name: "Chore", color: "black" }],
-  },
-  {
-    id: 2,
-    title: "Finish homework",
-    status: "in-progress",
-    priority: "medium",
-    category: [
-      { name: "Study", color: "blue" },
-      { name: "Urgent", color: "red" },
-    ],
-  },
-  {
-    id: 3,
-    title: "Buy groceries",
-    status: "completed",
-    priority: "low",
-    category: [{ name: "Personal", color: "green" }],
-  },
-  {
-    id: 4,
-    title: "Work on side project",
-    status: "in-progress",
-    priority: "high",
-    category: [{ name: "Development", color: "purple" }],
-  },
-  {
-    id: 5,
-    title: "Plan vacation",
-    status: "new",
-    priority: "medium",
-    category: [
-      { name: "Personal", color: "teal" },
-      { name: "Family", color: "orange" },
-    ],
-  },
-];
+const tasks: Task[] = [];
 </script>
 
 <template>
@@ -61,20 +19,28 @@ const tasks: Task[] = [
 
         <TaskForm v-if="showTaskForm" />
 
-        <TaskItem v-for="task in tasks" :key="task.id" :task="task" />
+        <p v-if="tasks.length === 0" class="no-tasks">No Tasks</p>
+
+        <TaskItem v-else v-for="task in tasks" :key="task.id" :task="task" />
       </div>
     </div>
 
     <div class="column" id="in-progress">
       <div class="title">In progress</div>
 
-      <div class="task-container"></div>
+      <div class="task-container">
+        <p v-if="tasks.length === 0" class="no-tasks">No Tasks</p>
+        <TaskItem v-else v-for="task in tasks" :key="task.id" :task="task" />
+      </div>
     </div>
 
     <div class="column" id="completed">
       <div class="title">Completed</div>
 
-      <div class="task-container"></div>
+      <div class="task-container">
+        <p v-if="tasks.length === 0" class="no-tasks">No Tasks</p>
+        <TaskItem v-else v-for="task in tasks" :key="task.id" :task="task" />
+      </div>
     </div>
   </div>
 </template>
@@ -108,6 +74,17 @@ const tasks: Task[] = [
   grid-template-rows: repeat(8, 1fr);
   padding: 15px 15px;
   row-gap: 15px;
+}
+
+.no-tasks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  grid-row: 2;
+
+  color: #82837c;
+  font-size: 24px;
 }
 
 #new-task {
