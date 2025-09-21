@@ -15,6 +15,11 @@ import DeleteIcon from "@/assets/icons/delete-icon.svg?component";
         <DownArrow class="down-arrow-icon" />
       </button>
 
+      <button id="category-filter">
+        Priority
+        <DownArrow class="down-arrow-icon" />
+      </button>
+
       <button id="clear-filter-btn" title="Clear filters">
         <DeleteIcon class="delete-icon" />
       </button>
@@ -37,10 +42,14 @@ import DeleteIcon from "@/assets/icons/delete-icon.svg?component";
 .logo-box {
   width: 100%;
   height: 75px;
+  padding: 0 50px;
+  box-sizing: border-box;
   background-color: #1f5384;
 
   color: #fafafa;
   font-size: 32px;
+  font-family: "Inter";
+  font-weight: bold;
 
   display: flex;
   justify-content: start;
@@ -50,7 +59,7 @@ import DeleteIcon from "@/assets/icons/delete-icon.svg?component";
 .filter-box {
   width: auto;
   height: auto;
-  padding: 10px 40px;
+  padding: 10px 40px 10px 20px;
   background-color: #faf0ca;
 
   display: flex;
@@ -73,14 +82,14 @@ import DeleteIcon from "@/assets/icons/delete-icon.svg?component";
 }
 
 .search-input::placeholder {
-  color: #5c6063c1;
+  color: #82837c;
 }
 
 #category-filter {
   background-color: transparent;
   border: none;
   font-size: 16px;
-  color: #5c6063c1;
+  color: #82837c;
 
   display: flex;
   align-items: center;
@@ -90,11 +99,17 @@ import DeleteIcon from "@/assets/icons/delete-icon.svg?component";
 
 .down-arrow-icon,
 .delete-icon {
-  width: 16px;
-  height: 16px;
+  width: 10px;
+  height: 12px;
   display: inline-block;
   flex-shrink: 0;
-  fill: gray;
+  fill: #82837c;
+}
+
+.delete-icon {
+  fill: #fa805d;
+  width: 12px;
+  height: 14px;
 }
 
 #clear-filter-btn {
@@ -105,6 +120,6 @@ import DeleteIcon from "@/assets/icons/delete-icon.svg?component";
   align-items: center;
   justify-content: center;
 
-  color: #5c6063a2;
+  color: #82837c;
 }
 </style>
