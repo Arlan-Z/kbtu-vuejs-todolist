@@ -2,11 +2,24 @@
 import TaskItem from "./TaskItem.vue";
 import TaskForm from "./TaskForm.vue";
 import type { Task } from "@/models/task";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 let showTaskForm = ref(false);
 
-const tasks: Task[] = [];
+const tasks = ref<Task[]>([]);
+
+const newTasks = computed(() => tasks.value.filter((task) => task.status === "new"));
+const inProgressTasks = computed(() =>
+  tasks.value.filter((task) => task.status === "in-progress")
+);
+const completedTasks = computed(() =>
+  tasks.value.filter((task) => task.status === "completed")
+);
+
+function handleAddTask(task: Task) {
+  tasks.value.push(task);
+  showTaskForm.value = false;
+}
 </script>
 
 <template>
@@ -17,11 +30,11 @@ const tasks: Task[] = [];
       <div class="task-container">
         <button id="new-task" @click="showTaskForm = !showTaskForm">+ New item</button>
 
-        <TaskForm v-if="showTaskForm" />
+        <TaskForm v-if="showTaskForm" @add-task="handleAddTask($event)" />
 
-        <p v-if="tasks.length === 0 && !showTaskForm" class="no-tasks">No Tasks</p>
+        <p v-if="newTasks.length === 0 && !showTaskForm" class="no-tasks">No Tasks</p>
 
-        <TaskItem v-else v-for="task in tasks" :key="task.id" :task="task" />
+        <TaskItem v-else v-for="task in newTasks" :key="task.id" :task="task" />
       </div>
     </div>
 
@@ -29,8 +42,13 @@ const tasks: Task[] = [];
       <div class="title">In progress</div>
 
       <div class="task-container">
-        <p v-if="tasks.length === 0" class="no-tasks">No Tasks</p>
-        <TaskItem v-else v-for="task in tasks" :key="task.id" :task="task" />
+        <p v-if="inProgressTasks.length === 0" class="no-tasks">No Tasks</p>
+        <TaskItem
+          v-else
+          v-for="task in inProgressTasks.filter((task) => task.status === 'in-progress')"
+          :key="task.id"
+          :task="task"
+        />
       </div>
     </div>
 
@@ -38,8 +56,8 @@ const tasks: Task[] = [];
       <div class="title">Completed</div>
 
       <div class="task-container">
-        <p v-if="tasks.length === 0" class="no-tasks">No Tasks</p>
-        <TaskItem v-else v-for="task in tasks" :key="task.id" :task="task" />
+        <p v-if="completedTasks.length === 0" class="no-tasks">No Tasks</p>
+        <TaskItem v-else v-for="task in completedTasks" :key="task.id" :task="task" />
       </div>
     </div>
   </div>

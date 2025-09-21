@@ -1,19 +1,48 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { Task, TaskPriority } from "@/models/task";
+import { ref } from "vue";
+
+const emit = defineEmits<{
+  (e: "add-task", task: Task): void;
+}>();
+
+const title = ref("");
+const priority = ref<TaskPriority>("low");
+const category = ref("");
+
+function saveTask() {
+  if (!title.value) return;
+
+  const newTask: Task = {
+    id: Date.now(),
+    title: title.value,
+    status: "new",
+    priority: priority.value,
+    category: category.value ? [{ name: category.value, color: "blue" }] : [],
+  };
+
+  emit("add-task", newTask);
+
+  title.value = "";
+  priority.value = "low";
+  category.value = "";
+}
+</script>
 
 <template>
   <div class="task-form-wrapper">
-    <input type="text" id="title" placeholder="Task title" />
+    <input type="text" id="title" placeholder="Task title" v-model="title" />
 
     <div class="option-box">
       <button id="category">+ Category</button>
-      <select name="priority" id="priority">
+      <select v-model="priority" id="priority">
         <option value="low">Low</option>
         <option value="medium">Medium</option>
         <option value="high">High</option>
       </select>
     </div>
 
-    <button class="save-btn">Save</button>
+    <button class="save-btn" @click="saveTask">Save</button>
   </div>
 </template>
 
