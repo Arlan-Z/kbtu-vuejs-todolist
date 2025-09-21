@@ -2,22 +2,17 @@
 import TaskItem from "./TaskItem.vue";
 import TaskForm from "./TaskForm.vue";
 import type { Task } from "@/models/task";
-import { computed, ref } from "vue";
+import { ref } from "vue";
+import draggable from "vuedraggable";
 
 let showTaskForm = ref(false);
 
-const tasks = ref<Task[]>([]);
-
-const newTasks = computed(() => tasks.value.filter((task) => task.status === "new"));
-const inProgressTasks = computed(() =>
-  tasks.value.filter((task) => task.status === "in-progress")
-);
-const completedTasks = computed(() =>
-  tasks.value.filter((task) => task.status === "completed")
-);
+const newTasks = ref<Task[]>([]);
+const inProgressTasks = ref<Task[]>([]);
+const completedTasks = ref<Task[]>([]);
 
 function handleAddTask(task: Task) {
-  tasks.value.push(task);
+  newTasks.value.push(task);
   showTaskForm.value = false;
 }
 </script>
@@ -34,7 +29,11 @@ function handleAddTask(task: Task) {
 
         <p v-if="newTasks.length === 0 && !showTaskForm" class="no-tasks">No Tasks</p>
 
-        <TaskItem v-else v-for="task in newTasks" :key="task.id" :task="task" />
+        <draggable v-model="newTasks" group="tasks" item-key="id" class="draggable-box">
+          <template #item="{ element }">
+            <TaskItem :key="element.id" :task="element" />
+          </template>
+        </draggable>
       </div>
     </div>
 
@@ -43,7 +42,17 @@ function handleAddTask(task: Task) {
 
       <div class="task-container">
         <p v-if="inProgressTasks.length === 0" class="no-tasks">No Tasks</p>
-        <TaskItem v-else v-for="task in inProgressTasks" :key="task.id" :task="task" />
+
+        <draggable
+          v-model="inProgressTasks"
+          group="tasks"
+          item-key="id"
+          class="draggable-box"
+        >
+          <template #item="{ element }">
+            <TaskItem :key="element.id" :task="element" />
+          </template>
+        </draggable>
       </div>
     </div>
 
@@ -52,7 +61,17 @@ function handleAddTask(task: Task) {
 
       <div class="task-container">
         <p v-if="completedTasks.length === 0" class="no-tasks">No Tasks</p>
-        <TaskItem v-else v-for="task in completedTasks" :key="task.id" :task="task" />
+
+        <draggable
+          v-model="completedTasks"
+          group="tasks"
+          item-key="id"
+          class="draggable-box"
+        >
+          <template #item="{ element }">
+            <TaskItem :key="element.id" :task="element" />
+          </template>
+        </draggable>
       </div>
     </div>
   </div>
@@ -98,6 +117,14 @@ function handleAddTask(task: Task) {
 
   color: #82837c;
   font-size: 24px;
+}
+
+.draggable-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
 }
 
 #new-task {
