@@ -40,7 +40,7 @@ p {
 }
 
 .priority-medium {
-  border-left: #ee964b solid 7px;
+  border-left: #ff7700 solid 7px;
 }
 
 .priority-high {
