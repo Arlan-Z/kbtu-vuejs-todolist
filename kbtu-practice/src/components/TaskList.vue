@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import TaskItem from "./TaskItem.vue";
 import TaskForm from "./TaskForm.vue";
+import { ref } from "vue";
+
+let showTaskForm = ref(false);
 </script>
 
 <template>
@@ -9,9 +12,9 @@ import TaskForm from "./TaskForm.vue";
       <div class="title">New</div>
 
       <div class="task-container">
-        <button id="new-task">+ New item</button>
+        <button id="new-task" @click="showTaskForm = !showTaskForm">+ New item</button>
 
-        <TaskForm />
+        <TaskForm v-if="showTaskForm" />
 
         <TaskItem />
       </div>
@@ -74,5 +77,14 @@ import TaskForm from "./TaskForm.vue";
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.075);
   font-size: 16px;
+  transition: 0.2s;
+}
+
+#new-task:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+#new-task:active {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 </style>
