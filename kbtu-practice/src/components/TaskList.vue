@@ -97,6 +97,7 @@ function handleAddTask(task: Task) {
 }
 
 .task-container {
+  position: relative;
   width: 100%;
   height: 500px;
   background-color: rgba(122, 39, 255, 0.05);
@@ -109,11 +110,16 @@ function handleAddTask(task: Task) {
 }
 
 .no-tasks {
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  grid-row: 2;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  grid-row: 3;
 
   color: #82837c;
   font-size: 24px;
