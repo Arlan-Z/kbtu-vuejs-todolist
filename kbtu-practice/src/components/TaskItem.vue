@@ -27,6 +27,7 @@ const props = defineProps<{
 
   box-sizing: border-box;
   box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 p {
@@ -39,11 +40,11 @@ p {
 }
 
 .priority-medium {
-  border-left: #ee964b solid 10px;
+  border-left: #ee964b solid 7px;
 }
 
 .priority-high {
-  border-left: #f95738 solid 10px;
+  border-left: #f95738 solid 7px;
 }
 
 .category-box {
