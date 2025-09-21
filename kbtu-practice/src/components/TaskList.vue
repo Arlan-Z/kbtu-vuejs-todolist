@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import TaskItem from "./TaskItem.vue";
+import TaskForm from "./TaskForm.vue";
 </script>
 
 <template>
@@ -9,6 +10,8 @@ import TaskItem from "./TaskItem.vue";
 
       <div class="task-container">
         <button id="new-task">+ New item</button>
+
+        <TaskForm />
 
         <TaskItem />
       </div>

@@ -12,11 +12,8 @@
       <div class="category">Category</div>
       <div class="category">Category</div>
       <div class="category">Category</div>
-
       <div class="category">Category</div>
-
       <div class="category">Category</div>
-
       <div class="category">Category</div>
     </div>
   </div>
