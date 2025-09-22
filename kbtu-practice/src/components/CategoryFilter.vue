@@ -28,7 +28,6 @@ const allCategories = ref<TaskCategory[]>(categories);
 <style scoped>
 .category-filter-wrapper {
   position: absolute;
-  position: absolute;
   top: 100%;
   left: 42.5%;
   z-index: 1000;

@@ -81,7 +81,6 @@ function isSelected(index: number) {
 <style scoped>
 .category-form-wrapper {
   position: absolute;
-  position: absolute;
   top: 110%;
   left: 0;
   z-index: 1000;

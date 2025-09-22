@@ -15,6 +15,16 @@ function handleAddTask(task: Task) {
   newTasks.value.push(task);
   showTaskForm.value = false;
 }
+
+function deleteTask(id: number, column: "new" | "in-progress" | "completed") {
+  if (column === "new") {
+    newTasks.value = newTasks.value.filter((task) => task.id !== id);
+  } else if (column === "in-progress") {
+    inProgressTasks.value = inProgressTasks.value.filter((task) => task.id !== id);
+  } else if (column === "completed") {
+    completedTasks.value = completedTasks.value.filter((task) => task.id !== id);
+  }
+}
 </script>
 
 <template>
@@ -31,7 +41,11 @@ function handleAddTask(task: Task) {
 
         <draggable v-model="newTasks" group="tasks" item-key="id" class="draggable-box">
           <template #item="{ element }">
-            <TaskItem :key="element.id" :task="element" />
+            <TaskItem
+              :key="element.id"
+              :task="element"
+              @delete-task="deleteTask($event, 'new')"
+            />
           </template>
         </draggable>
       </div>
@@ -50,7 +64,11 @@ function handleAddTask(task: Task) {
           class="draggable-box"
         >
           <template #item="{ element }">
-            <TaskItem :key="element.id" :task="element" />
+            <TaskItem
+              :key="element.id"
+              :task="element"
+              @delete-task="deleteTask($event, 'in-progress')"
+            />
           </template>
         </draggable>
       </div>
@@ -69,7 +87,11 @@ function handleAddTask(task: Task) {
           class="draggable-box"
         >
           <template #item="{ element }">
-            <TaskItem :key="element.id" :task="element" />
+            <TaskItem
+              :key="element.id"
+              :task="element"
+              @delete-task="deleteTask($event, 'completed')"
+            />
           </template>
         </draggable>
       </div>
