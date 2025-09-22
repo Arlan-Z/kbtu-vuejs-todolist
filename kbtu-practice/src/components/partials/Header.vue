@@ -47,7 +47,8 @@ let showPriorityFilter = ref(false);
   gap: 20px;
   position: relative;
 }
-x .logo-box {
+
+.logo-box {
   width: 100%;
   height: 75px;
   padding: 0 50px;
