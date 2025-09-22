@@ -2,8 +2,12 @@
 import TaskItem from "./TaskItem.vue";
 import TaskForm from "./TaskForm.vue";
 import type { Task } from "@/models/task";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import draggable from "vuedraggable";
+
+const props = defineProps<{
+  filters: { keyword: string; categories: string[]; priorities: string[] };
+}>();
 
 let showTaskForm = ref(false);
 
@@ -25,6 +29,22 @@ function deleteTask(id: number, column: "new" | "in-progress" | "completed") {
     completedTasks.value = completedTasks.value.filter((task) => task.id !== id);
   }
 }
+
+function matchesFilters(task: Task) {
+  const keywordOk =
+    !props.filters.keyword ||
+    task.title.toLowerCase().includes(props.filters.keyword.toLowerCase());
+
+  const categoryOk =
+    props.filters.categories.length === 0 ||
+    task.category.some((c) => props.filters.categories.includes(c.name));
+
+  const priorityOk =
+    props.filters.priorities.length === 0 ||
+    props.filters.priorities.includes(task.priority);
+
+  return keywordOk && categoryOk && priorityOk;
+}
 </script>
 
 <template>
@@ -45,6 +65,7 @@ function deleteTask(id: number, column: "new" | "in-progress" | "completed") {
               :key="element.id"
               :task="element"
               @delete-task="deleteTask($event, 'new')"
+              v-if="matchesFilters(element)"
             />
           </template>
         </draggable>
@@ -68,6 +89,7 @@ function deleteTask(id: number, column: "new" | "in-progress" | "completed") {
               :key="element.id"
               :task="element"
               @delete-task="deleteTask($event, 'in-progress')"
+              v-if="matchesFilters(element)"
             />
           </template>
         </draggable>
@@ -91,6 +113,7 @@ function deleteTask(id: number, column: "new" | "in-progress" | "completed") {
               :key="element.id"
               :task="element"
               @delete-task="deleteTask($event, 'completed')"
+              v-if="matchesFilters(element)"
             />
           </template>
         </draggable>

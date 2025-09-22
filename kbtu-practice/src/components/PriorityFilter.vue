@@ -1,24 +1,37 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const allPriorities = ref<string[]>(["Low", "Medium", "High"]);
+const props = defineProps<{ selected: string[] }>();
+const emit = defineEmits<{ (e: "update:selected", val: string[]): void }>();
+
+const priorities = ref([
+  { name: "Low", value: "low" },
+  { name: "Medium", value: "medium" },
+  { name: "High", value: "high" },
+]);
+
+function togglePriority(value: string) {
+  const copy = [...props.selected];
+  const idx = copy.indexOf(value);
+  if (idx === -1) copy.push(value);
+  else copy.splice(idx, 1);
+  emit("update:selected", copy);
+}
 </script>
 
 <template>
   <div class="priority-filter-wrapper">
-    <div v-for="(_, index) in allPriorities" :key="index" class="priority">
+    <div v-for="(p, index) in priorities" :key="index" class="priority">
       <label class="select-wrap">
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          :checked="props.selected.includes(p.value)"
+          @change="togglePriority(p.value)"
+        />
         <span class="check-custom"></span>
       </label>
 
-      <input
-        type="text"
-        v-model="allPriorities[index]"
-        placeholder="Priority"
-        class="input"
-        disabled
-      />
+      <input type="text" v-model="p.name" placeholder="Priority" class="input" disabled />
     </div>
   </div>
 </template>
@@ -51,44 +64,5 @@ const allPriorities = ref<string[]>(["Low", "Medium", "High"]);
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 6px;
-}
-
-#remove-btn {
-  border: none;
-  font-size: 18px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.2s;
-  background-color: transparent;
-}
-
-#remove-btn {
-  background-color: inherit;
-}
-
-.delete-icon {
-  fill: #cacaca;
-  height: 14px;
-  transition: 0.2s;
-}
-
-.delete-icon:hover {
-  fill: #9f9f9f;
-}
-
-#add-btn {
-  width: 50%;
-  height: fit-content;
-  border: none;
-  text-align: left;
-  box-sizing: border-box;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.075);
-  font-size: 16px;
-  transition: 0.2s;
-}
-
-#add-btn:hover {
-  background-color: rgba(0, 0, 0, 0.15);
 }
 </style>

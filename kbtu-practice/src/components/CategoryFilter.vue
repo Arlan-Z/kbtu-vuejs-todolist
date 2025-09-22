@@ -3,14 +3,29 @@ import type { TaskCategory } from "@/models/task";
 import { categories } from "@/data/taskCategories";
 import { ref } from "vue";
 
+const props = defineProps<{ selected: string[] }>();
+const emit = defineEmits<{ (e: "update:selected", val: string[]): void }>();
+
 const allCategories = ref<TaskCategory[]>(categories);
+
+function toggleCategory(name: string) {
+  const copy = [...props.selected];
+  const idx = copy.indexOf(name);
+  if (idx === -1) copy.push(name);
+  else copy.splice(idx, 1);
+  emit("update:selected", copy);
+}
 </script>
 
 <template>
   <div class="category-filter-wrapper">
     <div v-for="(cat, index) in allCategories" :key="index" class="category">
       <label class="select-wrap">
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          :checked="props.selected.includes(cat.name)"
+          @change="toggleCategory(cat.name)"
+        />
         <span class="check-custom"></span>
       </label>
 

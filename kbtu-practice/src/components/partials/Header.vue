@@ -3,10 +3,36 @@ import DownArrow from "@/assets/icons/down-arrow.svg?component";
 import DeleteIcon from "@/assets/icons/delete-icon.svg?component";
 import CategoryFilter from "../CategoryFilter.vue";
 import PriorityFilter from "../PriorityFilter.vue";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 let showCategoryFilter = ref(false);
 let showPriorityFilter = ref(false);
+
+const emit = defineEmits<{
+  (
+    e: "update-filters",
+    filters: { keyword: string; categories: string[]; priorities: string[] }
+  ): void;
+}>();
+
+let keyword = ref("");
+let selectedCategories = ref<string[]>([]);
+let selectedPriorities = ref<string[]>([]);
+
+function clearFilters() {
+  keyword.value = "";
+  selectedCategories.value = [];
+  selectedPriorities.value = [];
+  emit("update-filters", { keyword: "", categories: [], priorities: [] });
+}
+
+watch([keyword, selectedCategories, selectedPriorities], () => {
+  emit("update-filters", {
+    keyword: keyword.value,
+    categories: selectedCategories.value,
+    priorities: selectedPriorities.value,
+  });
+});
 </script>
 
 <template>
@@ -14,21 +40,26 @@ let showPriorityFilter = ref(false);
     <div class="logo-box">TODO List</div>
 
     <div class="filter-box">
-      <input type="text" class="search-input" placeholder="Filter by keyword" />
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Filter by keyword"
+        v-model="keyword"
+      />
 
       <button id="category-filter" @click="showCategoryFilter = !showCategoryFilter">
         Category
         <DownArrow class="down-arrow-icon" />
       </button>
-      <CategoryFilter v-if="showCategoryFilter" />
+      <CategoryFilter v-if="showCategoryFilter" v-model:selected="selectedCategories" />
 
       <button id="priority-filter" @click="showPriorityFilter = !showPriorityFilter">
         Priority
-        <DownArrow class="down-arrow-icon" />
+        <DownArrow class="down-arrow-icon" v-model:selected="selectedPriorities" />
       </button>
-      <PriorityFilter v-if="showPriorityFilter" />
+      <PriorityFilter v-if="showPriorityFilter" v-model:selected="selectedPriorities" />
 
-      <button id="clear-filter-btn" title="Clear filters">
+      <button id="clear-filter-btn" title="Clear filters" @click="clearFilters">
         <DeleteIcon class="delete-icon" />
       </button>
     </div>
