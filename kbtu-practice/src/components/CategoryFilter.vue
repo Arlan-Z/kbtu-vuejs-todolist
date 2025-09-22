@@ -53,43 +53,4 @@ const allCategories = ref<TaskCategory[]>(categories);
   border: 1px solid #ccc;
   border-radius: 6px;
 }
-
-#remove-btn {
-  border: none;
-  font-size: 18px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.2s;
-  background-color: transparent;
-}
-
-#remove-btn {
-  background-color: inherit;
-}
-
-.delete-icon {
-  fill: #cacaca;
-  height: 14px;
-  transition: 0.2s;
-}
-
-.delete-icon:hover {
-  fill: #9f9f9f;
-}
-
-#add-btn {
-  width: 50%;
-  height: fit-content;
-  border: none;
-  text-align: left;
-  box-sizing: border-box;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.075);
-  font-size: 16px;
-  transition: 0.2s;
-}
-
-#add-btn:hover {
-  background-color: rgba(0, 0, 0, 0.15);
-}
 </style>
