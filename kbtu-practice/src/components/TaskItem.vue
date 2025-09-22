@@ -95,8 +95,8 @@ p {
   text-align: center;
   font-size: 42px;
 
-  top: 15%;
-  left: 95%;
+  top: 5px;
+  right: -5px;
   transform: translate(-50%, -50%);
   color: rgba(0, 0, 0, 0.311);
   transition: 0.3s;

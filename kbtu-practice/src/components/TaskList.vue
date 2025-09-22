@@ -132,6 +132,8 @@ function matchesFilters(task: Task) {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 50px;
+
+  align-items: start;
 }
 
 .title {
@@ -144,14 +146,22 @@ function matchesFilters(task: Task) {
 .task-container {
   position: relative;
   width: 100%;
-  height: 500px;
+  min-height: 550px;
   background-color: rgba(122, 39, 255, 0.05);
 
   box-sizing: border-box;
-  display: grid;
-  grid-template-rows: repeat(8, 1fr);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
   padding: 15px 15px;
-  row-gap: 15px;
+
+  flex-grow: 1;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .no-tasks {
